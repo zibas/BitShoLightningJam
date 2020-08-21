@@ -206,3 +206,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 0.1
   myText: {fileID: 4182917607735287906}
+  BoundY: -3

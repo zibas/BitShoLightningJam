@@ -7,6 +7,8 @@ public class MoveDown : MonoBehaviour
 {
     public float MoveSpeed = 0.1f;
     public Text myText;
+    public float BoundY;
+    private bool _isAdded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,13 @@ public class MoveDown : MonoBehaviour
     void Update()
     {
         transform.Translate(new Vector2(0, -MoveSpeed));
+
+
+        if(!_isAdded && transform.position.y < BoundY)
+        {
+            _isAdded = true;
+            GameController.instance.UpdateMainString(myText.text);
+        }
     }
 
     public void SetText(string str)

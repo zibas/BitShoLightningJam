@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     public GameObject WordButtonPrefab;
     public GameObject CanvasObj;
     public float startY = 15;
+    public Text MainText;
     private string[] _wordList;
 
     private List<GameObject> _wordStuffs;
@@ -261,5 +263,10 @@ public class GameController : MonoBehaviour
     public string GetRandomString()
     {
         return _wordList[UnityEngine.Random.Range(0, _wordList.Length)];
+    }
+
+    public void UpdateMainString(string addStr)
+    {
+        MainText.text = MainText.text + " " +  addStr;
     }
 }
