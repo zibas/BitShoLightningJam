@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public float startY = 15;
     public Text MainText;
     private string[] _wordList;
+    public float TextScrollSpeed;
 
     private List<GameObject> _wordStuffs;
 
@@ -242,6 +243,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MainText.gameObject.transform.Translate(new Vector2(TextScrollSpeed * Time.deltaTime, 0));
     }
 
     public IEnumerator MakeAWord()
