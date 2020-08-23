@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     private string[] _wordList;
     public float TextScrollSpeed;
     public float SpawnDelay;
+    public float SpawnRadius;
 
     private List<GameObject> _wordStuffs;
 
@@ -238,7 +239,7 @@ public class GameController : MonoBehaviour
             "North",
             "Egglington",
         };
-        StartCoroutine("MakeAWord");
+        StartCoroutine("MakeWords");
     }
 
     // Update is called once per frame
@@ -247,17 +248,13 @@ public class GameController : MonoBehaviour
         MainText.gameObject.transform.Translate(new Vector2(TextScrollSpeed * Time.deltaTime, 0));
     }
 
-    public IEnumerator MakeAWord()
+    public IEnumerator MakeWords()
     {
         while(true)
         {
-            float randX = UnityEngine.Random.Range(-5f,5f);
-
-            GameObject newWordButton = Instantiate(WordButtonPrefab, CanvasObj.transform);
-            newWordButton.transform.position = new Vector2(randX, startY);
-
-            MoveDown myMoveScript = newWordButton.GetComponent<MoveDown>();
-            //myMoveScript.SetText(_wordList[UnityEngine.Random.Range(0, _wordList.Length)]);
+            //Make 2 words (roughly left and right)
+            MakeWord(UnityEngine.Random.Range(-SpawnRadius, 0));
+            MakeWord(UnityEngine.Random.Range(0, SpawnRadius), 0.5f);
 
             yield return new WaitForSeconds(SpawnDelay);
         }
@@ -271,5 +268,11 @@ public class GameController : MonoBehaviour
     public void UpdateMainString(string addStr)
     {
         MainText.text = MainText.text + " " +  addStr;
+    }
+
+    void MakeWord(float randX, float adjustY = 0f)
+    {
+        GameObject newWordButton = Instantiate(WordButtonPrefab, CanvasObj.transform);
+        newWordButton.transform.position = new Vector2(randX, startY + adjustY);
     }
 }
