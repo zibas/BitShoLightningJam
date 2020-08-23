@@ -11,19 +11,20 @@ public class GameController : MonoBehaviour
     public Text MainText;
     private string[] _wordList;
     public float TextScrollSpeed;
+    public float SpawnDelay;
 
     private List<GameObject> _wordStuffs;
 
 
-    public static GameController instance;
+    public static GameController Instance;
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
-        else if (instance != this)
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }
@@ -258,7 +259,7 @@ public class GameController : MonoBehaviour
             MoveDown myMoveScript = newWordButton.GetComponent<MoveDown>();
             //myMoveScript.SetText(_wordList[UnityEngine.Random.Range(0, _wordList.Length)]);
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(SpawnDelay);
         }
     }
 

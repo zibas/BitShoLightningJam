@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MoveDown : MonoBehaviour
 {
-    public float MoveSpeed = 0.1f;
+    public float MoveSpeed;
     public Text myText;
     public float BoundY;
     private bool _isAdded = false;
@@ -13,24 +13,34 @@ public class MoveDown : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myText.text = GameController.instance.GetRandomString();
+        myText.text = GameController.Instance.GetRandomString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector2(0, -MoveSpeed));
-
+        transform.Translate(new Vector2(0, -MoveSpeed * Time.deltaTime));
 
         if(!_isAdded && transform.position.y < BoundY)
         {
-            _isAdded = true;
-            GameController.instance.UpdateMainString(myText.text);
+            Destroy(gameObject);
         }
     }
 
     public void SetText(string str)
     {
         myText.text = str;
+    }
+
+    public void OnButtonPress()
+    {
+        /*GameController.Instance.UpdateMainString(myText.text);
+        Destroy(gameObject);*/
+    }
+
+    private void OnMouseDown()
+    {
+        GameController.Instance.UpdateMainString(myText.text);
+        Destroy(gameObject);
     }
 }
